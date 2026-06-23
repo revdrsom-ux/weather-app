@@ -1,0 +1,483 @@
+/* FIRST SEMESTER WEATHER APP PROJECT CSS FILE
+============================================================*
+   
+1. DESIGN TOKENS  (CSS custom properties)
+   ============================================================ */
+:root {
+  /* Brand colours — from the project's spec */
+  --color-navy:        #1A3C5E;   /* navbar / header background  */
+  --color-teal:        #2E86AB;   /* hero background, buttons    */
+  --color-teal-dark:   #1d6a8a;   /* hover state for teal        */
+
+  /* Page & surface colours */
+  --color-page-bg:     #f0f4f8;   /* body background             */
+  --color-surface:     #ffffff;   /* cards, panels               */
+  --color-surface-alt: #edf2f7;   /* history button background   */
+  --color-hover-bg:    #e2e8f0;   /* forecast row hover          */
+
+  /* Text colours */
+  --color-text-primary:  #1a1a2e; /* body text                   */
+  --color-text-heading:  #1A3C5E; /* stat values, forecast day   */
+  --color-text-muted:    #718096; /* labels, sub-headings        */
+  --color-text-light:    #a0aec0; /* forecast low temp           */
+  --color-text-dark:     #2d3748; /* history button text         */
+  --color-white:         #ffffff;
+
+  /* Border / divider colours */
+  --color-border:      #e2e8f0;
+  --color-divider:     #cbd5e0;
+
+  /* Error / alert colours */
+  --color-error-bg:    #ffe5e5;
+  --color-error-border:#d63031;
+  --color-error-text:  #c0392b;
+
+  /* Focus ring */
+  --color-focus-ring:  #5bc8f5;
+
+  /* Typography */
+  --font-base: Arial, sans-serif;
+
+  /* Transitions */
+  --transition-fast: all 0.2s ease;
+}
+
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-base);
+  background: var(--color-page-bg);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+
+/* ============================================================
+   3. NAVBAR
+   ============================================================ */
+.navbar {
+  background-color: var(--color-navy);
+  padding: 5px 0px 30px 15px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-radius: 20px 20px 0 0;
+  text-align: left;
+}
+
+.app-title {
+  color: var(--color-white);
+  font-size: 1.1rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   4. SEARCH SECTION
+   ============================================================ */
+.search-group {
+  display: flex;
+  max-width: 100%;
+  background-color: var(--color-white);
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  background: var(--color-white);
+  color: var(--color-navy);
+  margin: 5px 5px 5px 10px;
+  border: none;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.search-btn {
+  padding: 8px 18px;
+  background-color: var(--color-teal);
+  color: var(--color-white);
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: var(--transition-fast);
+  margin: 5px 10px 5px 2px;
+}
+
+.search-btn:hover {
+  background-color: var(--color-teal-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(46, 134, 171, 0.4);
+}
+
+
+/* ============================================================
+   5. MAIN CONTENT WRAPPER
+   ============================================================ */
+.main-content {
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ============================================================
+   6. LOADING STATE
+   ============================================================ */
+.loading-box {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-teal);
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+
+/* ============================================================
+   7. ERROR BOX
+   ============================================================ */
+.error-box {
+  background: var(--color-error-bg);
+  border-left: 4px solid var(--color-error-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--color-error-text);
+  font-size: 0.95rem;
+}
+
+
+/* ============================================================
+   8. WEATHER CARD
+   ============================================================ */
+.weather-card {
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  background: var(--color-surface);
+}
+
+
+/* ============================================================
+   9. HERO SECTION
+   ============================================================ */
+.hero {
+  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-teal-dark) 100%);
+  color: var(--color-white);
+  padding: 28px 20px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+/* --- Animated weather icon --- */
+.weather-icon {
+  font-size: 3rem;
+  margin-bottom: 6px;
+  display: inline-block;
+  animation: spin-sun 6s linear infinite;
+  transform-origin: center;
+}
+
+.weather-icon.sunny   { animation: spin-sun    8s linear      infinite; }
+.weather-icon.rainy   { animation: bounce-rain 1s ease-in-out infinite alternate; }
+.weather-icon.cloudy  { animation: drift       4s ease-in-out infinite alternate; }
+.weather-icon.thunder { animation: flash       1.5s steps(1)  infinite; }
+.weather-icon.snow    { animation: drift       5s ease-in-out infinite alternate; }
+
+@keyframes spin-sun {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes bounce-rain {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+@keyframes drift {
+  from { transform: translateX(-4px); }
+  to   { transform: translateX(4px); }
+}
+
+@keyframes flash {
+  0%,  49% { opacity: 1; }
+  50%, 100% { opacity: 0.4; }
+}
+
+.city-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.temperature {
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: 1.1;
+  margin: 4px 0;
+}
+
+.weather-desc {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.feels-like {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* --- Unit toggle button --- */
+.unit-toggle {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.unit-toggle:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+
+/* ============================================================
+   10. STATS ROW
+   ============================================================ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 8px;
+  gap: 4px;
+  position: relative;
+}
+
+/* Partial vertical divider between stat columns */
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 70%;
+  width: 1px;
+  background-color: var(--color-divider);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--color-text-heading);
+}
+
+
+/* ============================================================
+   11. FORECAST SECTION
+   ============================================================ */
+.forecast-section {
+  padding: 16px 12px 20px;
+  background: var(--color-surface);
+}
+
+.forecast-heading {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  padding: 0 4px;
+}
+
+.forecast-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Each forecast day is its own card on the page background colour */
+.forecast-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--color-page-bg);
+  transition: var(--transition-fast);
+  cursor: default;
+}
+
+.forecast-item:hover {
+  background: var(--color-hover-bg);
+  transform: translateX(2px);
+}
+
+.forecast-day {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+.forecast-icon {
+  font-size: 1.3rem;
+  text-align: center;
+  min-width: 28px;
+}
+
+/* High and low temperatures stacked vertically on the right */
+.forecast-temps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.forecast-temps .high {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--color-text-heading);
+}
+
+.forecast-temps .low {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+}
+
+
+/* ============================================================
+   12. SEARCH HISTORY
+   ============================================================ */
+.history-box {
+  background: var(--color-surface);
+  border-radius: 0 0 20px 20px;
+  padding: 12px 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.history-label {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.history-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.history-btn {
+  padding: 5px 14px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 0.82rem;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.history-btn:hover {
+  background: var(--color-teal);
+  color: var(--color-white);
+  border-color: var(--color-teal);
+}
+
+
+/* ============================================================
+   13. UTILITY
+   ============================================================ */
+.hidden {
+  display: none !important;
+}
+
+
+/* ============================================================
+   14. RESPONSIVE — narrow screens (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .navbar-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-title {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .search-group {
+    max-width: 100%;
+  }
+
+  .temperature {
+    font-size: 2.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.62rem;
+  }
+
+  .stat-value {
+    font-size: 0.95rem;
+  }
+
+  .forecast-item {
+    padding: 10px 12px;
+  }
+}

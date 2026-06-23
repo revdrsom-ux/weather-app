@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="weatherapp.css" />
+</head>
+
+<body>
+  <main class="main-content">
+
+
+    <!-- ============================================================
+         TOP NAVIGATION BAR
+         ============================================================ -->
+    <header class="navbar">
+      <span class="app-title">🌧 Weather App</span>
+    </header>
+
+    <!-- Search input and button -->
+    <div class="navbar-inner">
+      <div class="search-group">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search city..."
+          aria-label="City name"
+        />
+        <button id="searchBtn" class="search-btn" onclick="handleSearch()">Search</button>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         ERROR MESSAGE AREA
+         ============================================================ -->
+    <section id="errorBox" class="error-box hidden" role="alert" aria-live="polite">
+      <p id="errorMsg"></p>
+    </section>
+
+
+    <!-- ============================================================
+         LOADING INDICATOR
+         ============================================================ -->
+    <div id="loadingBox" class="loading-box hidden" aria-live="polite">Loading...</div>
+
+
+    <!-- ============================================================
+         CURRENT WEATHER CARD
+         ============================================================ -->
+    <section id="weatherCard" class="weather-card hidden">
+
+      <!-- Hero — icon, city, temperature, description -->
+      <div class="hero">
+        <div id="weatherIcon" class="weather-icon" aria-hidden="true">☀</div>
+        <h2 id="cityName" class="city-name">--</h2>
+        <p id="temperature" class="temperature">--°C</p>
+        <p id="weatherDesc" class="weather-desc">--</p>
+        <p id="feelsLike" class="feels-like">Feels like --°C</p>
+        <button id="unitToggle" class="unit-toggle" onclick="toggleUnit()">Switch to °F</button>
+      </div>
+
+      <!-- Stats row — humidity, wind speed, UV index -->
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-label">HUMIDITY</span>
+          <span id="humidity" class="stat-value">--%</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">WIND</span>
+          <span id="windSpeed" class="stat-value">-- km/h</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">UV INDEX</span>
+          <span id="uvIndex" class="stat-value">N/A</span>
+        </div>
+      </div>
+
+      <!-- 5-day forecast — populated dynamically by script.js -->
+      <section class="forecast-section">
+        <h3 class="forecast-heading">5-DAY FORECAST</h3>
+        <ul id="forecastList" class="forecast-list"></ul>
+      </section>
+
+    </section>
+
+
+    <!-- ============================================================
+         SEARCH HISTORY
+         ============================================================ -->
+    <div id="historyBox" class="history-box hidden">
+      <p class="history-label">Recent searches:</p>
+      <div id="historyBtns" class="history-btns"></div>
+    </div>
+
+
+  </main>
+
+  <script src="weatherapp.js"></script>
+</body>
+
+</html>
